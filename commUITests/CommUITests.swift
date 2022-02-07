@@ -1,5 +1,5 @@
 //
-//  commUITests.swift
+//  CommUITests.swift
 //  commUITests
 //
 //  Created by Simon on 7/2/22.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class commUITests: XCTestCase {
+class CommUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
