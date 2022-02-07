@@ -140,4 +140,21 @@ final class TransactionsViewModel {
 		}
 		return description
 	}
+
+	func projectedSpend() -> Decimal {
+		let cal = Calendar.current
+		guard let daySpan = cal.dateComponents([.day], from: transactionKeys.last ?? Date(), to: transactionKeys.first ?? Date()).day else { return 0 }
+
+		var spendTotal: Decimal = 0
+
+		for key in transactionKeys {
+			if let transactions = transactions[key] {
+				for transaction in transactions where transaction.amount < 0 {
+					spendTotal += transaction.amount
+				}
+			}
+		}
+
+		return abs((spendTotal / Decimal(daySpan)) * 14)
+	}
 }
