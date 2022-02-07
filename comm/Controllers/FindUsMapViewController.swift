@@ -27,9 +27,11 @@ final class FindUsMapViewController: UIViewController, MKMapViewDelegate {
 
 		view = mapView
 
-		let barAppearance = UINavigationBarAppearance()
-		barAppearance.configureWithDefaultBackground()
-		navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+		if #available(iOS 13.0, *) {
+			let barAppearance = UINavigationBarAppearance()
+			barAppearance.configureWithDefaultBackground()
+			navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+		}
 	}
 
 	func setup(atm: ATM) {

@@ -44,6 +44,7 @@ final class TransactionsViewModel {
 //		return formatter
 //	}()
 
+	@available(iOS 15.0.0, *)
 	func fetchTransactions(from address: String) async {
 		do {
 			guard let url = URL(string: address) else {
@@ -51,6 +52,26 @@ final class TransactionsViewModel {
 				return
 			}
 			let exercise: Exercise = try await URLSession.shared.decode(from: url, dateDecodingStrategy: .formatted(jsonDateFormatter))
+			account = exercise.account
+			atms = exercise.atms
+
+			var unsortedTransactions = exercise.transactions.map { Transaction($0) }
+			unsortedTransactions.append(contentsOf: exercise.pending.map { Transaction($0, isPending: true) })
+
+			transactions = sortTransactions(rawTransactions: unsortedTransactions)
+			transactionKeys = transactions.keys.sorted(by: >)
+		} catch {
+			print("Download error: \(error)")
+		}
+	}
+
+	func fetchTransactions(from address: String) {
+		do {
+			guard let url = URL(string: address) else {
+				print("Invalid URL")
+				return
+			}
+			let exercise: Exercise = try URLSession.shared.decode(from: url, dateDecodingStrategy: .formatted(jsonDateFormatter))
 			account = exercise.account
 			atms = exercise.atms
 

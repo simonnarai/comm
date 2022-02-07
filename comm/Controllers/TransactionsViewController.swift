@@ -26,19 +26,40 @@ final class TransactionsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupUI()
-		Task {
-			await viewModel.fetchTransactions(from: jsonURL)
+		if #available(iOS 15.0, *) {
+			Task {
+				await viewModel.fetchTransactions(from: jsonURL)
 
-			if let account = viewModel.account {
-				accountDetailsHeader.setup(
-					accountName: account.accountName,
-					accountNumber: account.accountNumber,
-					availableFunds: viewModel.currencyString(account.available),
-					accountBalance: viewModel.currencyString(account.balance))
+				if let account = viewModel.account {
+					accountDetailsHeader.setup(
+						accountName: account.accountName,
+						accountNumber: account.accountNumber,
+						availableFunds: viewModel.currencyString(account.available),
+						accountBalance: viewModel.currencyString(account.balance))
+				}
+
+				tableView.reloadData()
+				activityIndicator.stopAnimating()
 			}
+		} else {
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+				guard let self = self else { return }
+				self.viewModel.fetchTransactions(from: self.jsonURL)
 
-			tableView.reloadData()
-			activityIndicator.stopAnimating()
+				DispatchQueue.main.async { [weak self] in
+					guard let self = self else { return }
+					if let account = self.viewModel.account {
+						self.accountDetailsHeader.setup(
+							accountName: account.accountName,
+							accountNumber: account.accountNumber,
+							availableFunds: self.viewModel.currencyString(account.available),
+							accountBalance: self.viewModel.currencyString(account.balance))
+					}
+
+					self.tableView.reloadData()
+					self.activityIndicator.stopAnimating()
+				}
+			}
 		}
 	}
 
@@ -48,13 +69,17 @@ final class TransactionsViewController: UITableViewController {
 		tableView.register(TransactionCell.self, forCellReuseIdentifier: transactionCellIdentifier)
 		tableView.register(TransactionHeader.self, forHeaderFooterViewReuseIdentifier: transactionHeaderIdentifier)
 
-		tableView.sectionHeaderTopPadding = 0
+		if #available(iOS 15.0, *) {
+			tableView.sectionHeaderTopPadding = 0
+		}
 
 		tableView.tableHeaderView = accountDetailsHeader
 
 		tableView.addSubviews(activityIndicator)
 		activityIndicator.centerAlignInSuperview()
-		activityIndicator.style = .large
+		if #available(iOS 13.0, *) {
+			activityIndicator.style = .large
+		}
 		activityIndicator.startAnimating()
 	}
 

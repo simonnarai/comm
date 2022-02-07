@@ -22,8 +22,6 @@ final class TransactionHeader: UITableViewHeaderFooterView {
 		return stack
 	}()
 
-	private let relativeDateTimeFormatter = RelativeDateTimeFormatter()
-
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
 		setupUI()
@@ -34,8 +32,6 @@ final class TransactionHeader: UITableViewHeaderFooterView {
 
 		stack.fillSuperview()
 		stack.addArrangedSubviews(dateLabel, daysAgoLabel)
-
-		relativeDateTimeFormatter.dateTimeStyle = .numeric
 	}
 
 	func setup(date: String, daysAgo: String) {

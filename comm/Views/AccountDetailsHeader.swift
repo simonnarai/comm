@@ -45,15 +45,13 @@ final class AccountDetailsHeader: UIView {
 		return stack
 	}()
 
-	private let upperView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .systemBackground
-		return view
-	}()
-
 	private let upperStack: UIStackView = {
 		let stack = UIStackView(spacing: 10)
-		stack.backgroundColor = .systemBackground
+		if #available(iOS 13.0, *) {
+			stack.backgroundColor = .systemBackground
+		} else {
+			stack.backgroundColor = .white
+		}
 		stack.isLayoutMarginsRelativeArrangement = true
 		stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
 		return stack

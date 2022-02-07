@@ -14,7 +14,11 @@ extension UILabel {
 		self.init()
 		self.text = text
 		self.font = font ?? .preferredFont(forTextStyle: .body)
-		self.textColor = textColor ?? .label
+		if #available(iOS 13.0, *) {
+			self.textColor = textColor ?? .label
+		} else {
+			self.textColor = textColor ?? .black
+		}
 	}
 
 	/// Set attributedText from html, matching system font and font size
