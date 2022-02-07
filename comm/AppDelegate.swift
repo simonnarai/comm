@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window = UIWindow(frame: UIScreen.main.bounds)
 
 		let transactionsViewController = TransactionsViewController()
-		transactionsViewController.title = NSLocalizedString("Account Details", comment: "")
 		let navigationController = UINavigationController(rootViewController: transactionsViewController)
 
 		self.window?.rootViewController = navigationController

@@ -18,7 +18,7 @@
 		F4E707F927B096A000DD5011 /* ATM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707F827B096A000DD5011 /* ATM.swift */; };
 		F4E707FB27B096AD00DD5011 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707FA27B096AD00DD5011 /* Location.swift */; };
 		F4E707FD27B096B700DD5011 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707FC27B096B700DD5011 /* Exercise.swift */; };
-		F4E7080027B0973500DD5011 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707FF27B0973500DD5011 /* TransactionViewModel.swift */; };
+		F4E7080027B0973500DD5011 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707FF27B0973500DD5011 /* TransactionsViewModel.swift */; };
 		F4E7080327B0977000DD5011 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7080227B0977000DD5011 /* TransactionCell.swift */; };
 		F4E7080527B0979F00DD5011 /* TransactionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7080427B0979F00DD5011 /* TransactionHeader.swift */; };
 		F4E7080727B097D200DD5011 /* AccountDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7080627B097D200DD5011 /* AccountDetailsHeader.swift */; };
@@ -30,6 +30,9 @@
 		F4E7081427B0993500DD5011 /* UIColor+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7081327B0993500DD5011 /* UIColor+Assets.swift */; };
 		F4E7081627B0994D00DD5011 /* UIImage+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7081527B0994D00DD5011 /* UIImage+Assets.swift */; };
 		F4E7081927B0A73700DD5011 /* UIColor+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7081827B0A73700DD5011 /* UIColor+Helpers.swift */; };
+		F4E7081B27B0B47300DD5011 /* FindUsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7081A27B0B47300DD5011 /* FindUsMapViewController.swift */; };
+		F4E7081D27B0BA5B00DD5011 /* MKMapView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7081C27B0BA5B00DD5011 /* MKMapView+Helpers.swift */; };
+		F4E7081F27B0BE1800DD5011 /* FindUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E7081E27B0BE1800DD5011 /* FindUsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +68,7 @@
 		F4E707F827B096A000DD5011 /* ATM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATM.swift; sourceTree = "<group>"; };
 		F4E707FA27B096AD00DD5011 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		F4E707FC27B096B700DD5011 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
-		F4E707FF27B0973500DD5011 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		F4E707FF27B0973500DD5011 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
 		F4E7080227B0977000DD5011 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		F4E7080427B0979F00DD5011 /* TransactionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHeader.swift; sourceTree = "<group>"; };
 		F4E7080627B097D200DD5011 /* AccountDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsHeader.swift; sourceTree = "<group>"; };
@@ -77,6 +80,9 @@
 		F4E7081327B0993500DD5011 /* UIColor+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Assets.swift"; sourceTree = "<group>"; };
 		F4E7081527B0994D00DD5011 /* UIImage+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Assets.swift"; sourceTree = "<group>"; };
 		F4E7081827B0A73700DD5011 /* UIColor+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Helpers.swift"; sourceTree = "<group>"; };
+		F4E7081A27B0B47300DD5011 /* FindUsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsMapViewController.swift; sourceTree = "<group>"; };
+		F4E7081C27B0BA5B00DD5011 /* MKMapView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Helpers.swift"; sourceTree = "<group>"; };
+		F4E7081E27B0BE1800DD5011 /* FindUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				F4E707F127B0956000DD5011 /* TransactionsViewController.swift */,
+				F4E7081A27B0B47300DD5011 /* FindUsMapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -179,7 +186,8 @@
 		F4E7080127B0975200DD5011 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				F4E707FF27B0973500DD5011 /* TransactionViewModel.swift */,
+				F4E707FF27B0973500DD5011 /* TransactionsViewModel.swift */,
+				F4E7081E27B0BE1800DD5011 /* FindUsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -205,6 +213,7 @@
 				F4E7081827B0A73700DD5011 /* UIColor+Helpers.swift */,
 				F4E7081327B0993500DD5011 /* UIColor+Assets.swift */,
 				F4E7081527B0994D00DD5011 /* UIImage+Assets.swift */,
+				F4E7081C27B0BA5B00DD5011 /* MKMapView+Helpers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -363,8 +372,10 @@
 				F4E707C127B091C300DD5011 /* AppDelegate.swift in Sources */,
 				F4E7080527B0979F00DD5011 /* TransactionHeader.swift in Sources */,
 				F4E707F227B0956000DD5011 /* TransactionsViewController.swift in Sources */,
+				F4E7081D27B0BA5B00DD5011 /* MKMapView+Helpers.swift in Sources */,
 				F4E7081027B098BA00DD5011 /* Date+Helpers.swift in Sources */,
 				F4E707F727B0969600DD5011 /* Transaction.swift in Sources */,
+				F4E7081B27B0B47300DD5011 /* FindUsMapViewController.swift in Sources */,
 				F4E707F927B096A000DD5011 /* ATM.swift in Sources */,
 				F4E7081427B0993500DD5011 /* UIColor+Assets.swift in Sources */,
 				F4E707FB27B096AD00DD5011 /* Location.swift in Sources */,
@@ -374,10 +385,11 @@
 				F4E707FD27B096B700DD5011 /* Exercise.swift in Sources */,
 				F4E707F527B0968700DD5011 /* Account.swift in Sources */,
 				F4E7080E27B0986300DD5011 /* UILabel+Helpers.swift in Sources */,
-				F4E7080027B0973500DD5011 /* TransactionViewModel.swift in Sources */,
+				F4E7080027B0973500DD5011 /* TransactionsViewModel.swift in Sources */,
 				F4E7080A27B0981900DD5011 /* UIView+Helpers.swift in Sources */,
 				F4E7081627B0994D00DD5011 /* UIImage+Assets.swift in Sources */,
 				F4E7080727B097D200DD5011 /* AccountDetailsHeader.swift in Sources */,
+				F4E7081F27B0BE1800DD5011 /* FindUsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

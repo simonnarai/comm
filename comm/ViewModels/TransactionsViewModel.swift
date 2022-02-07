@@ -10,9 +10,9 @@ import UIKit
 final class TransactionsViewModel {
 
 	public private(set) var account: Account?
-	public private(set) var atms = [ATM]()
-	public private(set) var transactions = [Date: [Transaction]]()
-	public private(set) var transactionKeys = [Date]()
+	private var atms = [ATM]()
+	private var transactions = [Date: [Transaction]]()
+	private var transactionKeys = [Date]()
 
 	private let currencyFormatter: NumberFormatter = {
 		let formatter = NumberFormatter()
@@ -75,6 +75,26 @@ final class TransactionsViewModel {
 			sortedTransactions[date]?.sort { $0.effectiveDate > $1.effectiveDate }
 		}
 		return sortedTransactions
+	}
+
+	func getTransactionsCount() -> Int {
+		transactions.count
+	}
+
+	func getTransactionDate(forSection section: Int) -> Date {
+		transactionKeys[section]
+	}
+
+	func getTransactionCount(forSection section: Int) -> Int {
+		transactions[transactionKeys[section]]?.count ?? 0
+	}
+
+	func getTransaction(indexPath: IndexPath) -> Transaction? {
+		transactions[transactionKeys[indexPath.section]]?[indexPath.row]
+	}
+
+	func getATM(forId id: String) -> ATM? {
+		atms.first(where: { $0.id == id })
 	}
 
 	func currencyString(_ value: Decimal) -> String {
