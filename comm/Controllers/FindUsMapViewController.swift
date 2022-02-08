@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-final class FindUsMapViewController: UIViewController, MKMapViewDelegate {
+final class FindUsMapViewController: UIViewController {
 
 	private let viewModel = FindUsViewModel()
 
@@ -44,6 +44,10 @@ final class FindUsMapViewController: UIViewController, MKMapViewDelegate {
 
 		mapView.centerToLocation(viewModel.atmLocation, regionRadius: 500)
 	}
+}
+
+// MARK: MKMapViewDelegate
+extension FindUsMapViewController: MKMapViewDelegate {
 
 	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 		guard annotation is MKPointAnnotation else { return nil }

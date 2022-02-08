@@ -10,27 +10,68 @@ import XCTest
 
 class CommTests: XCTestCase {
 
+	let account = Account(accountName: "Test Account", accountNumber: "123456 7890 1234", available: 505.55, balance: 525.55)
+	let transactions: [Transaction] = [
+		Transaction(id: "1", effectiveDate: Date(), description: "First Test Transaction", amount: -12.50, atmId: nil),
+		Transaction(id: "2", effectiveDate: Date(), description: "Second Test Transaction", amount: -100.50, atmId: nil)
+	]
+	let pending: [Transaction] = [
+		Transaction(id: "1", effectiveDate: Date(), description: "A Pending Transaction", amount: -56.99, atmId: nil),
+		Transaction(id: "2", effectiveDate: Date(), description: "Another Pending Transaction", amount: -19.00, atmId: nil)
+	]
+	let atms: [ATM] = [
+	]
+
+	var mockExercise: Exercise?
+
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        mockExercise = Exercise(account: account, transactions: transactions, pending: pending, atms: atms)
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+	func testFetchBadUrl() async throws {
+		let badUrl = "https:\\www.dropbox.com/s/tewg9b71x0wrou9/data.json?dl=1"
+
+		let viewModel = TransactionsViewModel(networkProvider: NetworkFetcher(jsonUrl: badUrl))
+
+		try? await viewModel.fetch()
+
+		XCTAssertNil(viewModel.account)
+		XCTAssertEqual(viewModel.getTransactionsCount(), 0)
+		XCTAssertEqual(viewModel.getTransactionCount(forSection: 0), 0)
+		XCTAssertNil(viewModel.getTransaction(indexPath: IndexPath(row: 0, section: 0)))
+	}
+
+    func testFetchTransactions() async throws {
+		let goodUrl = "https://www.dropbox.com/s/tewg9b71x0wrou9/data.json?dl=1"
+
+		let viewModel = TransactionsViewModel(networkProvider: NetworkFetcher(jsonUrl: goodUrl))
+
+		try? await viewModel.fetch()
+
+		XCTAssertEqual(viewModel.account?.accountName, "Complete Access")
+		XCTAssertEqual(viewModel.getTransactionsCount(), 13)
+		XCTAssertEqual(viewModel.getTransactionCount(forSection: 0), 2)
+		XCTAssertEqual(viewModel.getTransaction(indexPath: IndexPath(item: 0, section: 0))?.amount, 12.0)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+	func testProjectedSpend() throws {
+		guard let exercise = mockExercise else {
+			return
+		}
 
+		let viewModel = TransactionsViewModel(networkProvider: MockFetcher(exercise: exercise))
+
+		XCTAssertEqual(viewModel.projectedSpend(), 0)
+	}
+
+//    func testPerformanceExample() throws {
+//        // This is an example of a performance test case.
+//        self.measure {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
 }

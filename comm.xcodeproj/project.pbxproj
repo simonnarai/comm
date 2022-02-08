@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F40AA5A727B0F78B00987728 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AA5A627B0F78B00987728 /* NetworkProvider.swift */; };
+		F40AA5A927B10FB000987728 /* NetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AA5A827B10FB000987728 /* NetworkFetcher.swift */; };
+		F40AA5AB27B1195D00987728 /* MockFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AA5AA27B1195D00987728 /* MockFetcher.swift */; };
 		F4E707C127B091C300DD5011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707C027B091C300DD5011 /* AppDelegate.swift */; };
 		F4E707CA27B091C400DD5011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E707C927B091C400DD5011 /* Assets.xcassets */; };
 		F4E707D827B091C400DD5011 /* CommTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E707D727B091C400DD5011 /* CommTests.swift */; };
@@ -53,6 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F40AA5A627B0F78B00987728 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		F40AA5A827B10FB000987728 /* NetworkFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetcher.swift; sourceTree = "<group>"; };
+		F40AA5AA27B1195D00987728 /* MockFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetcher.swift; sourceTree = "<group>"; };
 		F4E707BD27B091C300DD5011 /* comm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = comm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E707C027B091C300DD5011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4E707C927B091C400DD5011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +116,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F40AA5A527B0F67200987728 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				F40AA5A627B0F78B00987728 /* NetworkProvider.swift */,
+				F40AA5A827B10FB000987728 /* NetworkFetcher.swift */,
+				F40AA5AA27B1195D00987728 /* MockFetcher.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
 		F4E707B427B091C300DD5011 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +152,7 @@
 				F4E707C027B091C300DD5011 /* AppDelegate.swift */,
 				F4E707F327B0956500DD5011 /* Controllers */,
 				F4E707FE27B096BB00DD5011 /* Data */,
+				F40AA5A527B0F67200987728 /* Providers */,
 				F4E7080127B0975200DD5011 /* ViewModels */,
 				F4E7080827B097E800DD5011 /* Views */,
 				F4E707C927B091C400DD5011 /* Assets.xcassets */,
@@ -372,13 +389,16 @@
 				F4E707C127B091C300DD5011 /* AppDelegate.swift in Sources */,
 				F4E7080527B0979F00DD5011 /* TransactionHeader.swift in Sources */,
 				F4E707F227B0956000DD5011 /* TransactionsViewController.swift in Sources */,
+				F40AA5A727B0F78B00987728 /* NetworkProvider.swift in Sources */,
 				F4E7081D27B0BA5B00DD5011 /* MKMapView+Helpers.swift in Sources */,
 				F4E7081027B098BA00DD5011 /* Date+Helpers.swift in Sources */,
 				F4E707F727B0969600DD5011 /* Transaction.swift in Sources */,
+				F40AA5AB27B1195D00987728 /* MockFetcher.swift in Sources */,
 				F4E7081B27B0B47300DD5011 /* FindUsMapViewController.swift in Sources */,
 				F4E707F927B096A000DD5011 /* ATM.swift in Sources */,
 				F4E7081427B0993500DD5011 /* UIColor+Assets.swift in Sources */,
 				F4E707FB27B096AD00DD5011 /* Location.swift in Sources */,
+				F40AA5A927B10FB000987728 /* NetworkFetcher.swift in Sources */,
 				F4E7081927B0A73700DD5011 /* UIColor+Helpers.swift in Sources */,
 				F4E7081227B098FB00DD5011 /* URLSession+Helpers.swift in Sources */,
 				F4E7080327B0977000DD5011 /* TransactionCell.swift in Sources */,

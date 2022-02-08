@@ -9,10 +9,12 @@ import UIKit
 
 final class TransactionsViewModel {
 
+	private let networkProvider: NetworkProvider
+
 	public private(set) var account: Account?
-	private var atms = [ATM]()
-	private var transactions = [Date: [Transaction]]()
-	private var transactionKeys = [Date]()
+	private var atms: [ATM] = []
+	private var transactions: [Date: [Transaction]] = [:]
+	private var transactionKeys: [Date] = []
 
 	private let currencyFormatter: NumberFormatter = {
 		let formatter = NumberFormatter()
@@ -29,65 +31,47 @@ final class TransactionsViewModel {
 		return formatter
 	}()
 
-	private let jsonDateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.locale = .current
-		formatter.timeZone = .current
-		formatter.dateFormat = "dd/MM/yyyy"
-		return formatter
-	}()
-
-//	Removed in favour of dayAgo
+//	Removed in favour of daysAgo, kept commented to show modern API usage
 //	private let relativeDateFormatter: RelativeDateTimeFormatter = {
 //		let formatter = RelativeDateTimeFormatter()
 //		formatter.dateTimeStyle = .named
 //		return formatter
 //	}()
 
+	init(networkProvider: NetworkProvider) {
+		self.networkProvider = networkProvider
+	}
+
 	@available(iOS 15.0.0, *)
-	func fetchTransactions(from address: String) async {
-		do {
-			guard let url = URL(string: address) else {
-				print("Invalid URL")
-				return
-			}
-			let exercise: Exercise = try await URLSession.shared.decode(from: url, dateDecodingStrategy: .formatted(jsonDateFormatter))
-			account = exercise.account
-			atms = exercise.atms
-
-			var unsortedTransactions = exercise.transactions.map { Transaction($0) }
-			unsortedTransactions.append(contentsOf: exercise.pending.map { Transaction($0, isPending: true) })
-
-			transactions = sortTransactions(rawTransactions: unsortedTransactions)
-			transactionKeys = transactions.keys.sorted(by: >)
-		} catch {
-			print("Download error: \(error)")
-		}
+	func fetch() async throws {
+		let exercise = try await networkProvider.fetch()
+		afterFetchSetup(withExercise: exercise)
 	}
 
-	func fetchTransactions(from address: String) {
-		do {
-			guard let url = URL(string: address) else {
-				print("Invalid URL")
-				return
-			}
-			let exercise: Exercise = try URLSession.shared.decode(from: url, dateDecodingStrategy: .formatted(jsonDateFormatter))
-			account = exercise.account
-			atms = exercise.atms
-
-			var unsortedTransactions = exercise.transactions.map { Transaction($0) }
-			unsortedTransactions.append(contentsOf: exercise.pending.map { Transaction($0, isPending: true) })
-
-			transactions = sortTransactions(rawTransactions: unsortedTransactions)
-			transactionKeys = transactions.keys.sorted(by: >)
-		} catch {
-			print("Download error: \(error)")
-		}
+	func fetch() throws {
+		let exercise = try networkProvider.fetchSync()
+		afterFetchSetup(withExercise: exercise)
 	}
 
-	private func sortTransactions(rawTransactions: [Transaction]) -> [Date: [Transaction]] {
+	private func afterFetchSetup(withExercise exercise: Exercise) {
+		account = exercise.account
+		atms = exercise.atms
+
+		let unsortedTransactions = mapTransactions(transactions: exercise.transactions, pendingTransactions: exercise.pending)
+
+		transactions = sortTransactions(unsortedTransactions: unsortedTransactions)
+		transactionKeys = transactions.keys.sorted(by: >)
+	}
+
+	private func mapTransactions(transactions: [Transaction], pendingTransactions: [Transaction]) -> [Transaction] {
+		var mappedTransactions = transactions.map { Transaction($0) }
+		mappedTransactions.append(contentsOf: pendingTransactions.map { Transaction($0, isPending: true) })
+		return mappedTransactions
+	}
+
+	private func sortTransactions(unsortedTransactions: [Transaction]) -> [Date: [Transaction]] {
 		var sortedTransactions = [Date: [Transaction]]()
-		for transaction in rawTransactions {
+		for transaction in unsortedTransactions {
 			let date = Date.stripTime(fromDate: transaction.effectiveDate)
 			if sortedTransactions[date] == nil {
 				sortedTransactions[date] = []
@@ -107,11 +91,11 @@ final class TransactionsViewModel {
 	}
 
 	func getTransactionCount(forSection section: Int) -> Int {
-		transactions[transactionKeys[section]]?.count ?? 0
+		transactionKeys.count == 0 ? 0 : transactions[transactionKeys[section]]?.count ?? 0
 	}
 
 	func getTransaction(indexPath: IndexPath) -> Transaction? {
-		transactions[transactionKeys[indexPath.section]]?[indexPath.row]
+		transactionKeys.count == 0 ? nil : transactions[transactionKeys[indexPath.section]]?[indexPath.row]
 	}
 
 	func getATM(forId id: String) -> ATM? {
@@ -143,7 +127,7 @@ final class TransactionsViewModel {
 
 	func projectedSpend() -> Decimal {
 		let cal = Calendar.current
-		guard let daySpan = cal.dateComponents([.day], from: transactionKeys.last ?? Date(), to: transactionKeys.first ?? Date()).day else { return 0 }
+		guard let daySpan = cal.dateComponents([.day], from: transactionKeys.last ?? Date(), to: transactionKeys.first ?? Date()).day, daySpan > 0 else { return 0 }
 
 		var spendTotal: Decimal = 0
 

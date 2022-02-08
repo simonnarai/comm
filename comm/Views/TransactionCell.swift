@@ -57,8 +57,10 @@ final class TransactionCell: UITableViewCell {
 
 		if #available(iOS 13.0, *) {
 			if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-				descriptionLabel.attributedText = nil
-				descriptionLabel.setHTML(fromString: rawDescriptionString)
+				DispatchQueue.main.async {
+					self.descriptionLabel.attributedText = nil
+					self.descriptionLabel.setHTML(fromString: self.rawDescriptionString)
+				}
 			}
 		}
 	}

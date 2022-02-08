@@ -13,7 +13,7 @@ extension UILabel {
 	convenience init(text: String = "", font: UIFont? = nil, textColor: UIColor? = nil) {
 		self.init()
 		self.text = text
-		self.font = font ?? .preferredFont(forTextStyle: .body)
+		self.font = font
 		if #available(iOS 13.0, *) {
 			self.textColor = textColor ?? .label
 		} else {
